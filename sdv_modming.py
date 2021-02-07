@@ -4,9 +4,8 @@ A script to automate updating Stardew Valley mods.
 """
 from concurrent.futures import ThreadPoolExecutor
 from glob import glob
-from itertools import repeat
 from shutil import move, rmtree
-from os.path import abspath, dirname, exists, normpath
+from os.path import dirname, exists, normpath
 from zipfile import ZipFile
 
 __author__ = "Jasmine Webb"
@@ -34,14 +33,14 @@ def update_mod(updated_mod_dir):
     given mod.
     """
     mod_name = ""
+    outdated_mod_dir = normpath(f"../{mod_name}")
 
     print(f"📁 Extracting {updated_mod_dir}...")
     with ZipFile(updated_mod_dir, "r") as updated_mod:
         mod_name = normpath(dirname(updated_mod.namelist()[0]))
         updated_mod.extractall()
 
-    # If there is an outdated version in the Mods directory
-    outdated_mod_dir = normpath(f"../{mod_name}")
+    # If this isn't a fresh install of the mod
     if exists(outdated_mod_dir):
         clean_outdated(mod_name, outdated_mod_dir)
 
