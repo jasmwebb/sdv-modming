@@ -4,8 +4,8 @@ A script to automate updating Stardew Valley mods.
 """
 from concurrent.futures import ThreadPoolExecutor
 from glob import glob
-from shutil import move, rmtree
 from os.path import dirname, exists, normpath
+from shutil import move, rmtree
 from zipfile import ZipFile
 
 __author__ = "Jasmine Webb"
@@ -28,7 +28,7 @@ def clean_outdated(mod, outdated):
     rmtree(outdated)
 
 
-def update_mod(updated_mod_dir):
+def install_mod(updated_mod_dir):
     """Handles the process of extracting, updating, and setting the config of a
     given mod.
     """
@@ -52,13 +52,13 @@ def update_mod(updated_mod_dir):
 
 
 def main():
-    """ Main entry point of the app. """
+    """Main entry point of the app."""
     updates = glob("*.zip")  # Determine mods to update
 
     with ThreadPoolExecutor() as executor:
-        executor.map(update_mod, updates)
+        executor.map(install_mod, updates)
 
 
 if __name__ == "__main__":
-    """ This is executed when run from the command line. """
+    """This is executed when run from the command line."""
     main()
