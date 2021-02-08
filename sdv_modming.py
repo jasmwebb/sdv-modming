@@ -33,14 +33,14 @@ def install_mod(updated_mod_dir):
     given mod.
     """
     mod_name = ""
-    outdated_mod_dir = normpath(f"../{mod_name}")
 
     print(f"📁 Extracting {updated_mod_dir}...")
     with ZipFile(updated_mod_dir, "r") as updated_mod:
         mod_name = normpath(dirname(updated_mod.namelist()[0]))
         updated_mod.extractall()
 
-    # If this isn't a fresh install of the mod
+    outdated_mod_dir = normpath(f"../{mod_name}")
+
     if exists(outdated_mod_dir):
         clean_outdated(mod_name, outdated_mod_dir)
 
